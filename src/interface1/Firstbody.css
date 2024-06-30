@@ -1,0 +1,39 @@
+#first-two {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .energie {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .energie p {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .white-line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--line-color);
+    position: relative;
+  }
+  
+  .colored-line {
+    height: 3px;
+    background-color: var(--line-color);
+  }
+  
+  @media (max-width: 600px) {
+    .energie p {
+      font-size: 14px;
+    }
+  }
+  

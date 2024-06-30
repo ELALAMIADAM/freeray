@@ -1,0 +1,31 @@
+/* Container for the entire component */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Date picker container */
+  .date-picker-container {
+    margin-bottom: 20px;
+  }
+  .custom-date-picker {
+    border: none; /* Remove the border */
+    padding: 0; /* Remove padding */
+    font-size: inherit; /* Inherit font size */
+    background: none; /* Remove background */
+    text-align: center;
+  }
+  
+  /* Chart container */
+  #chart {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* HTML distribution container */
+  #html-dist {
+    margin-top: 20px;
+  }
+  

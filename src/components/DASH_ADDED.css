@@ -1,0 +1,64 @@
+.container_LIST {
+    padding: 20px;
+  }
+  
+  .signal-slaves-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .signal-slaves-table th, .signal-slaves-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .signal-slaves-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .signal-slaves-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .signal-slaves-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .signal-slaves-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Dashboard.css */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.dashboard-item {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flow-root;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}

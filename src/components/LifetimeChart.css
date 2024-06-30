@@ -1,0 +1,13 @@
+/* Container for the entire chart */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Chart container */
+  #chart {
+    width: 80%;
+  }
+  

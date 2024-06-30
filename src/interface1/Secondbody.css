@@ -1,0 +1,30 @@
+.secondbody {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .icon img {
+    width: 40px; /* Adjust the size as necessary */
+    height: 40px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .value {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  .name {
+    color: grey;
+    font-size: 0.9em;
+  }
+  

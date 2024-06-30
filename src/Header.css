@@ -1,0 +1,179 @@
+/* Header.css */
+.profile-pic {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  margin-right: 10px; 
+  vertical-align: middle; 
+}
+.header {
+  background-color: #16107a;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 30px; /* Adjust the height of the logo as needed */
+  margin-right: 10px;
+}
+
+.site-title {
+  color: rgb(143, 101, 226);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.navigation {
+  margin-left: auto;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.nav-list li {
+  position: relative; /* Needed for positioning the submenu */
+}
+
+.nav-list a {
+  color: rgb(143, 101, 226);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.nav-list a:hover {
+  text-decoration: underline;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  color: rgb(143, 101, 226);
+  text-decoration: none;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
+.sub-menu {
+  list-style: none;
+  padding: 10px;
+  background: #16107a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0;
+  border-radius: 4px;
+  display: none; /* Hidden by default */
+}
+
+.sub-menu li {
+  margin: 5px 0;
+}
+
+.sub-menu a {
+  color: rgb(143, 101, 226);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.sub-menu a:hover {
+  text-decoration: underline;
+}
+
+.nav-list li:hover .sub-menu {
+  display: block; /* Show submenu on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-list a {
+    font-size: 0.8em;
+  }
+
+  .logo-img {
+    height: 25px;
+  }
+
+  .site-title {
+    font-size: 1em;
+  }
+
+  .sub-menu {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .sub-menu a {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-list li {
+    width: 100%;
+  }
+
+  .nav-list a {
+    font-size: 0.8em;
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+  }
+
+  .sub-menu {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .sub-menu a {
+    font-size: 0.8em;
+  }
+}

@@ -1,0 +1,128 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .App {
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .App.list {
+    flex: 2;
+  }
+  
+  .App.insert {
+    flex: 1;
+  }
+  
+  h1,
+  h2 {
+    color: #333;
+    text-align: center;
+  }
+  
+  form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  form div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  /* SlavesManager.css */
+.selected {
+  background-color: green;
+  color: white;
+}
+
+.set {
+  background-color: gray;
+  color: white;
+}
+
+  /* button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } */
+  /* General button styles */
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Delete button styles */
+button.delete {
+  background-color: blue;
+  color: white;
+}
+
+/* SET button styles */
+button.set {
+  background-color: blue;
+  color: white;
+}
+
+/* Selected button styles */
+button.selected {
+  background-color: green;
+  color: white;
+}
+
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .App {
+      margin: 10px 0;
+      max-width: 100%;
+    }
+  
+    form {
+      max-width: 100%;
+      padding: 10px;
+    }
+  }
+  
