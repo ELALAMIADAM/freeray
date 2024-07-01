@@ -338,20 +338,20 @@ app.listen(port, () => {
 });
 
 
-const cron = require('node-cron');
-const { exec } = require('child_process');
+// const cron = require('node-cron');
+// const { exec } = require('child_process');
 
-// Schedule the Python script to run every minute
-cron.schedule('* * * * * *', () => {
-    exec('python time.py', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing Python script: ${error}`);
-            return;
-        }
-        // console.log(`Python script output: ${stdout}`);
-        // console.error(`Python script errors: ${stderr}`);
-    });
-});
+// // Schedule the Python script to run every minute
+// cron.schedule('* * * * * *', () => {
+//     exec('python time.py', (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(`Error executing Python script: ${error}`);
+//             return;
+//         }
+//         // console.log(`Python script output: ${stdout}`);
+//         // console.error(`Python script errors: ${stderr}`);
+//     });
+// });
 
 
 // const cron = require('node-cron');
