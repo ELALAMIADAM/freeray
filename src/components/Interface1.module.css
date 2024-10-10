@@ -1,66 +1,146 @@
-/* Interface1.module.css */
-
+/* General styling for the dashboard */
 .dashboard {
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* Light background for the main dashboard */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centering content */
 }
 
+/* Container for flex layout with wrap and gaps */
 .container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-wrap: wrap; /* Allows items to wrap onto multiple lines */
+  gap: 20px; /* Spacing between flex items */
+  width: 100%; /* Full width for responsiveness */
+  max-width: 1200px; /* Max width for larger screens */
+  margin: 0 auto; /* Centering container */
 }
 
-/* .group {
+.interface1group {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
-  margin: 0 10px; 
+  flex-wrap: nowrap; /* Ensures that elements don't wrap to the next line */
+  gap: 10px; /* Adds space between the elements (optional) */
 }
-
-.element {
-  flex: 1 1 calc(33.333% - 20px);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-} */
+.elementA {
+  border-radius: 5px; 
+}
+.elementA:hover {
+  transform: scale(1.02); /* Slight scaling on hover */
+}
 .group {
   flex: 1;
   margin: 0 10px;  
+  display: flex;
+  flex-direction: column;
 }
 
+/* Element styling with a clean and simple box design */
 .element {
   border: 1px solid #ddd; 
   border-radius: 5px; 
   padding: 15px; 
   margin: 10px 0; 
   background-color: #fff; 
-} 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visual separation */
+  transition: transform 0.2s; /* Smooth transform for hover effect */
+}
+
+.element:hover {
+  transform: scale(1.02); /* Slight scaling on hover */
+}
+
+/* Full width adjustment for larger screens */
 .fullWidth {
   flex: 1 1 100%;
 }
 
+/* Responsive styling for smaller screens */
 @media (max-width: 1024px) {
   .element {
-    flex: 1 1 calc(50% - 20px);
+    flex: 1 1 calc(50% - 20px); /* Half width for medium screens */
   }
 }
 
 @media (max-width: 768px) {
   .element {
-    flex: 1 1 100%;
+    flex: 1 1 100%; /* Full width for small screens */
   }
 }
 
+/* D3 diagram and weather container */
 .d3-weather-container {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 20px; /* Spacing between diagram and weather component */
+  align-items: center; /* Centering content */
 }
 
+/* Smaller width for specific elements */
 .element1  {
-  max-width: 300px; /* Adjust the width to your desired smaller size */
+  max-width: 300px; /* Adjust the width for specific elements */
 }
 
+/* Additional Styling for icons */
+.icon {
+  width: 24px; /* Standard icon size */
+  height: 24px;
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.icon img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Styling for headings and text */
+.heading {
+  font-size: 1.5rem; /* Larger heading size */
+  font-weight: bold;
+  color: #333; /* Dark color for better readability */
+  margin-bottom: 10px; /* Space below heading */
+}
+
+.text {
+  font-size: 1rem; /* Standard text size */
+  color: #555; /* Medium gray for standard text */
+}
+
+/* Buttons styling */
+.button {
+  padding: 10px 20px;
+  background-color: #007BFF; /* Blue background for primary buttons */
+  color: #fff; /* White text for contrast */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.button:active {
+  background-color: #004494; /* Even darker on click */
+}
+
+/* Add accessibility with focus styles */
+.button:focus {
+  outline: 2px solid #0056b3; /* Outline for focus state */
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 1.25rem; /* Smaller heading for mobile */
+  }
+
+  .text {
+    font-size: 0.875rem; /* Smaller text for mobile */
+  }
+
+  .button {
+    padding: 8px 16px; /* Smaller button padding */
+  }
+}

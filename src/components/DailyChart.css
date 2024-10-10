@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  width:100%;
 }
 /* Custom styling for the DatePicker */
 .custom-date-picker {

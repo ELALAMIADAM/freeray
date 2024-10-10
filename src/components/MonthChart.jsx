@@ -5,10 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './MonthChart.css';
 
 const MonthChart = ({allSeries}) => {
-  const initialDate = new Date('2024-05'); // Start of the initial month
-  // const initialMonthDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // This will always be the start of the current month
+  // const initialDate = new Date('2024-05'); // Start of the initial month
+  const initialMonthDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1); // This will always be the start of the current month
 
-  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [selectedDate, setSelectedDate] = useState(initialMonthDate);
 
   const filterSeriesByDate = (date) => {
     const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -23,7 +23,7 @@ const MonthChart = ({allSeries}) => {
     }));
   };
 
-  const [series, setSeries] = useState(filterSeriesByDate(initialDate));
+  const [series, setSeries] = useState(filterSeriesByDate(initialMonthDate));
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -87,8 +87,8 @@ const MonthChart = ({allSeries}) => {
               return date.toLocaleDateString('en-GB', { month: 'short', day: '2-digit' });
           }
       },
-      min: new Date(initialDate.getFullYear(), initialDate.getMonth(), 1).getTime(),
-      max: new Date(initialDate.getFullYear(), initialDate.getMonth() + 1, 0, 23, 59, 59, 999).getTime()
+      min: new Date(initialMonthDate.getFullYear(), initialMonthDate.getMonth(), 1).getTime(),
+      max: new Date(initialMonthDate.getFullYear(), initialMonthDate.getMonth() + 1, 0, 23, 59, 59, 999).getTime()
     },
     yaxis: {
       min: 0 
@@ -119,7 +119,7 @@ const MonthChart = ({allSeries}) => {
         />
       </div>
       <div id="chart">
-        <ReactApexChart options={options} series={series} type="area" height={350} />
+        <ReactApexChart options={options} series={series} type="area" height={350} width={700} />
       </div>
     </div>
   );

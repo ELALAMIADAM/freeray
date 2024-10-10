@@ -8,8 +8,8 @@ import Multiple_Radialbars from './MultipleRadialbars.jsx';
 import Pie from './Pie.jsx';
 import Radar from './Radar.jsx';
 import Multi_group from './Multi_group.jsx';
-import graph_yield from './graph_yield.jsx';
-import './DASH_ADDED.css'; // Import the CSS file
+import GraphYield from './GraphYield.jsx'; // Updated import
+import styles from './DASH_ADDED.module.css'; 
 
 function DASH_ADDED() {
   const [dashboardData, setDashboardData] = useState({});
@@ -52,7 +52,6 @@ function DASH_ADDED() {
     return <div>Error: {error}</div>;
   }
 
-  // Define chart components and their corresponding names
   const chartComponents = {
     'Gradient_Circle': Gradient_Circle,
     'Semi_Circular': Semi_Circular,
@@ -62,17 +61,17 @@ function DASH_ADDED() {
     'Pie': Pie,
     'Radar': Radar,
     'Multi_group': Multi_group,
-    'graph_yield': graph_yield
+    'GraphYield': GraphYield
   };
 
   return (
     <div>
-      <div className="dashboard-grid">
+      <div className={styles.dashboardGrid}>
         {Object.keys(dashboardData).map(groupId => {
           const chartData = dashboardData[groupId];
           const ChartComponent = chartComponents[chartData.group_name];
           return ChartComponent ? (
-            <div className="dashboard-item" key={groupId}>
+            <div className={styles.dashboardItem} key={groupId}>
               <ChartComponent series={chartData.signal_values} labels={chartData.signal_names} />
             </div>
           ) : null;
@@ -80,6 +79,6 @@ function DASH_ADDED() {
       </div>
     </div>
   );
-};
+}
 
 export default DASH_ADDED;

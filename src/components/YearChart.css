@@ -7,15 +7,17 @@
   }
   
   /* Date picker container */
-  .date-picker-container {
-    margin-bottom: 20px;
-  }
   .custom-date-picker {
     border: none; /* Remove the border */
     padding: 0; /* Remove padding */
     font-size: inherit; /* Inherit font size */
     background: none; /* Remove background */
     text-align: center;
+  }
+  
+  /* Date picker container */
+  .date-picker-container {
+    margin-bottom: 20px;
   }
   
   /* Chart container */

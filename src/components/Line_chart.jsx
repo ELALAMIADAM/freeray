@@ -46,7 +46,7 @@ class Line_chart extends React.Component {
       return (
         <div >
           <div >
-            <ReactApexChart options={this.state.options} series={this.state.series} type="area" height={350} />
+            <ReactApexChart options={this.state.options} series={this.state.series} type="area" height={300} width={700} />
           </div>
           <div id="html-dist"></div>
         </div>

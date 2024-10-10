@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './YearChart.css';
-const YearChart = ({allSeries} ) => {
-  // const initialDate = new Date('2024');
-  const initialDate = new Date(new Date().getFullYear(), 0, 1); // This will always be the start of the current year
+import './YearChart.css'; // Updated import for standard CSS
+
+const YearChart = ({ allSeries }) => {
+  const initialDate = new Date(new Date().getFullYear(), 0, 1);
 
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
@@ -14,15 +14,13 @@ const YearChart = ({allSeries} ) => {
     const endOfYear = new Date(date.getFullYear(), 11, 31, 23, 59, 59, 999);
 
     return allSeries.map(series => ({
-        ...series,
-        data: series.data.filter(([time]) => {
-            const currentTime = new Date(time);
-            return currentTime >= startOfYear && currentTime <= endOfYear;
-        })
+      ...series,
+      data: series.data.filter(([time]) => {
+        const currentTime = new Date(time);
+        return currentTime >= startOfYear && currentTime <= endOfYear;
+      })
     }));
-};
-
-
+  };
 
   const [series, setSeries] = useState(filterSeriesByDate(initialDate));
 
@@ -83,15 +81,15 @@ const YearChart = ({allSeries} ) => {
     xaxis: {
       type: 'datetime',
       labels: {
-          formatter: function (value) {
-              const date = new Date(value);
-              return date.toLocaleDateString('en-GB', { month: '2-digit'});
-          }
+        formatter: function (value) {
+          const date = new Date(value);
+          return date.toLocaleDateString('en-GB', { month: '2-digit' });
+        }
       }
-  },
-  yaxis: {
-    min: 0 
-  },
+    },
+    yaxis: {
+      min: 0
+    },
     legend: {
       position: 'top',
       horizontalAlign: 'right',
@@ -114,13 +112,12 @@ const YearChart = ({allSeries} ) => {
           onChange={handleDateChange}
           showYearPicker
           dateFormat="yyyy"
-          className="custom-date-picker" 
+          className="custom-date-picker"
         />
       </div>
       <div id="chart">
-        <ReactApexChart options={options} series={series} type="area" height={350} />
+        <ReactApexChart options={options} series={series} type="area" height={350} width={700}/>
       </div>
-      
     </div>
   );
 };

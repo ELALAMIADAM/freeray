@@ -5,8 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './DailyChart.css';
 
 const DailyChart = ({ allSeries }) => {
-  const initialDate = new Date('2024-05-01');
-  // const initialDate = new Date();
+  // const initialDate = new Date('2024-05-01');
+  const initialDate = new Date();
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
   const filterSeriesByDate = (date) => {
@@ -29,7 +29,7 @@ const DailyChart = ({ allSeries }) => {
   const getChartOptions = (date) => {
     const startOfDay = new Date(date).setHours(0, 0, 0, 0);
     const endOfDay = new Date(date).setHours(23, 59, 59, 999);
-
+  
     return {
       chart: {
         height: 350,
@@ -89,10 +89,10 @@ const DailyChart = ({ allSeries }) => {
         labels: {
           formatter: function (value, timestamp) {
             const date = new Date(timestamp);
-            if (date.getHours() === 0 && date.getMinutes() === 0) {
-              return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
-            }
-            return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            return date.toLocaleTimeString('en-GB', {
+              hour: '2-digit',
+              minute: '2-digit'
+            }).replace(':00', ':00');
           }
         }
       },
@@ -113,6 +113,7 @@ const DailyChart = ({ allSeries }) => {
       },
     };
   };
+  
 
   const [options, setOptions] = useState(getChartOptions(initialDate));
 
@@ -131,7 +132,7 @@ const DailyChart = ({ allSeries }) => {
         />
       </div>
       <div id="chart">
-        <ReactApexChart options={options} series={series} type="area" height={350} />
+        <ReactApexChart options={options} series={series} type="area" height={350} width={700} />
       </div>
       <div id="html-dist">
         {/* Your HTML distribution content */}

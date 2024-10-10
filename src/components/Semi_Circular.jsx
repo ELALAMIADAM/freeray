@@ -61,7 +61,7 @@ function Semi_Circular(props) {
     <div>
       <div id="card">
         <div id="chart">
-          <ReactApexChart options={options} series={props.series} type="radialBar" height={400} />
+          <ReactApexChart options={options} series={props.series} type="radialBar" height={350} />
         </div>
       </div>
       <div id="html-dist"></div>

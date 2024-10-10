@@ -11,29 +11,25 @@ h2 {
 
 .filter {
   margin-bottom: 20px;
-}
-
-.filter-form {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* Align items at the top */
+  justify-content: center;
 }
 
-.filter-input-left,
-.filter-input-right {
-  flex: 1; /* Equal width for both filter inputs */
+.filter form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add some spacing between elements */
 }
 
 .filter label {
-  margin-right: 5px;
   font-weight: bold;
 }
 
 .filter input {
   padding: 5px;
-  width: 100%; /* Take up full width of parent */
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 150px; /* Fixed width for inputs */
 }
 
 .filter button {
@@ -50,28 +46,29 @@ h2 {
   background-color: #0056b3;
 }
 
-.signal-slaves-table {
+
+.signalSlavesTable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.signal-slaves-table th,
-.signal-slaves-table td {
+.signalSlavesTable th,
+.signalSlavesTable td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-.signal-slaves-table th {
+.signalSlavesTable th {
   background-color: #f2f2f2;
   color: black;
 }
 
-.signal-slaves-table tr:nth-child(even) {
+.signalSlavesTable tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.signal-slaves-table tr:hover {
+.signalSlavesTable tr:hover {
   background-color: #ddd;
 }

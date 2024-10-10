@@ -1,150 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-/* https://codepen.io/gbopola/pen/gOdKqqr */
-
-.container {
-  background: #171717;
-  color: #fff;
-  padding: 2rem;
-  width: 30%;
-  margin: 4rem auto;
-  border-radius: 20px;
+:root {
+  --background: #171717;
+  --text-color: #fff;
+  --secondary-bg: #1e1e1e;
 }
 
-.weather__header {
+.container {
+  background: var(--background);
+  color: var(--text-color);
+  padding: 0.5rem;  /* Reduced padding */
+  width: 90%;  /* Adjust to full width for better responsiveness */
+  max-width: 300px;  /* Set a max-width to control size */
+  margin: 2rem auto;  /* Reduced margin */
+  border-radius: 15px;  /* Slightly smaller border radius */
+}
+
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;  /* Add space between header and body */
 }
 
-/* .weather__search {
+.search {
   display: flex;
+  width: 100%;
   align-items: center;
-} */
-.weather__search {
-  display: flex;
-  width: 40%;
-  margin: 1rem ;
-  align-items: center;
-  background: #1e1e1e; /* Background color matching the container */
-  border-radius: 20px; /* Rounded corners */
-  padding: 0.5rem; /* Padding to give some space inside */
-
+  background: var(--secondary-bg);
+  border-radius: 10px;  /* Smaller border radius */
+  padding: 0.5rem;
 }
 
-.weather__searchform {
-  flex: 1; /* This makes the input field take up all available space */
+.input {
+  flex: 1;
   border: none;
-  background: transparent; /* No background as it's contained within .weather__search */
+  background: transparent;
   outline: none;
-  color: #fff; /* White text color */
-  padding: 0.5rem 1rem; /* Padding for better text spacing */
-  font-size: 1rem; /* Font size to match the design */
-  border-radius: 20px; /* Ensure the input has rounded corners */
+  color: var(--text-color);
+  padding: 0.25rem 0.5rem;  /* Reduced padding */
+  font-size: 0.875rem;  /* Reduced font size */
 }
 
-
-
-.weather__search button {
+.search button {
   background: none;
   border: none;
-  color: #fff;
-  cursor: pointer;
-  margin-left: -30px;
-}
-
-.weather__units {
-  font-size: 1.5rem;
-}
-
-.weather__units span {
+  color: var(--text-color);
   cursor: pointer;
 }
 
-.weather__units span.active {
+.units {
+  font-size: 1rem;  /* Reduced font size */
+}
+
+.units span {
+  cursor: pointer;
+}
+
+.units .active {
   font-weight: bold;
   text-decoration: underline;
 }
 
-.weather__units span:first-child {
-  margin-right: 0.5rem;
-}
-
-.weather__body {
+.body {
   text-align: center;
-  margin-top: 3rem;
 }
 
-.weather__datetime {
-  margin-bottom: 2rem;
-  font-size: 14px;
+.datetime {
+  margin-bottom: 1rem;  /* Reduced margin */
+  font-size: 12px;  /* Reduced font size */
 }
 
-.weather__forecast {
-  background: #1e1e1e;
+.forecast {
+  background: var(--secondary-bg);
   display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
+  padding: 0.25rem 0.5rem;  /* Reduced padding */
+  border-radius: 20px;  /* Smaller border radius */
 }
 
-.weather__icon img {
-  width: 100px;
+.icon {
+  width: 75px;  /* Reduced image size */
 }
 
-.weather__temperature {
-  font-size: 1.75rem;
+.temperature {
+  font-size: 1.25rem;  /* Reduced font size */
 }
 
-.weather__minmax {
+.minmax {
   display: flex;
   justify-content: center;
 }
 
-.weather__minmax p {
-  font-size: 14px;
-  margin: 0.5rem;
+.minmax p {
+  font-size: 12px;  /* Reduced font size */
+  margin: 0.25rem;  /* Reduced margin */
 }
 
-.weather__info {
+.info {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1rem;
-  margin-top: 3rem;
+  grid-gap: 0.5rem;  /* Reduced grid gap */
+  margin-top: 2rem;  /* Reduced margin */
 }
 
-.weather__card {
+.card {
   display: flex;
   align-items: center;
-  background: #1e1e1e;
-  padding: 1rem;
-  border-radius: 10px;
+  background: var(--secondary-bg);
+  padding: 0.5rem;  /* Reduced padding */
+  border-radius: 5px;  /* Smaller border radius */
 }
 
-.weather__card i {
-  font-size: 1.5rem;
-  margin-right: 1rem;
+.card i {
+  font-size: 1rem;  /* Reduced icon size */
+  margin-right: 0.5rem;  /* Reduced margin */
 }
 
-.weather__card p {
-  font-size: 14px;
+.card p {
+  font-size: 12px;  /* Reduced font size */
 }
 
-@media(max-width: 936px) {
+@media (max-width: 936px) {
   .container {
-    width: 90%;
+    width: 80%;  /* Reduced width for smaller screens */
   }
 
-  .weather__header {
+  .header {
     flex-direction: column;
   }
 
-  .weather__units {
-    margin-top: 1rem;
+  .units {
+    margin-top: 0.5rem;
   }
 }
 
-@media(max-width: 400px) {
-  .weather__info {
-    grid-template-columns: none;
+@media (max-width: 400px) {
+  .info {
+    grid-template-columns: 1fr;
   }
 }

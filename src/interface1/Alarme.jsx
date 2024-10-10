@@ -1,7 +1,7 @@
 function Alarme(props){
 
     return(
-        <h4>{props.valeur} : {props.name} </h4>
+        <h4>{props.name} </h4>
 
     );
 }

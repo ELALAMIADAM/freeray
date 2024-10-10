@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DailyChart from '../components/DailyChart.jsx';
-import MonthChart from '../components/MonthChart.jsx';
-import YearChart from '../components/YearChart.jsx';
-import LifetimeChart from '../components/LifetimeChart.jsx';
+import DailyChart from './DailyChart.jsx';
+import MonthChart from './MonthChart.jsx';
+import YearChart from './YearChart.jsx';
+import LifetimeChart from './LifetimeChart.jsx';
+import styles from './GraphYield.module.css';
 
-
-function graph_yield() {
+function GraphYield() {
   const [selectedChart, setSelectedChart] = useState('day');
   const [allSeries, setAllSeries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,21 +16,20 @@ function graph_yield() {
     switch (selectedChart) {
       case 'day':
         fetchDataDay();
-        break; 
+        break;
       case 'month':
         fetchDataMonth();
         break;
       case 'year':
         fetchDataYear();
-        break; 
+        break;
       case 'lifetime':
         fetchDataLife();
         break;
       default:
         fetchDataDay();
     }
-  }, [selectedChart]); // Ensure the effect runs when selectedChart changes
-  
+  }, [selectedChart]);
 
   const fetchDataDay = async () => {
     setLoading(true);
@@ -44,6 +43,7 @@ function graph_yield() {
       setLoading(false);
     }
   };
+
   const fetchDataMonth = async () => {
     setLoading(true);
     try {
@@ -56,6 +56,7 @@ function graph_yield() {
       setLoading(false);
     }
   };
+
   const fetchDataYear = async () => {
     setLoading(true);
     try {
@@ -68,6 +69,7 @@ function graph_yield() {
       setLoading(false);
     }
   };
+
   const fetchDataLife = async () => {
     setLoading(true);
     try {
@@ -82,66 +84,48 @@ function graph_yield() {
   };
 
   const transformDataYear = (data) => {
-    // Group data by series
     const seriesMap = new Map();
-  
     data.forEach(({ year, total_value }) => {
       if (!seriesMap.has('series1')) {
         seriesMap.set('series1', []);
       }
       seriesMap.get('series1').push([new Date(year, 0).getTime(), parseInt(total_value)]);
     });
-  
-    // Convert map to array of series objects
     return Array.from(seriesMap, ([name, data]) => ({ name, data }));
   };
-  
+
   const transformDataYM = (data) => {
-    // Group data by series
     const seriesMap = new Map();
-  
     data.forEach(({ month, total_value }) => {
       if (!seriesMap.has('series1')) {
         seriesMap.set('series1', []);
       }
       seriesMap.get('series1').push([new Date(month).getTime(), parseInt(total_value)]);
     });
-  
-    // Convert map to array of series objects
     return Array.from(seriesMap, ([name, data]) => ({ name, data }));
   };
-  
-  
+
   const transformDataM = (data) => {
-    // Group data by series
     const seriesMap = new Map();
-  
-    data.forEach(({ date, total_value }) => {
-      const timestamp = new Date(date).getTime();
+    data.forEach(({ date_takeen, signal_value }) => {
+      const timestamp = new Date(date_takeen).getTime();
       if (!seriesMap.has('series1')) {
         seriesMap.set('series1', []);
       }
-      seriesMap.get('series1').push([timestamp, parseInt(total_value)]);
+      seriesMap.get('series1').push([timestamp, parseInt(signal_value)]);
     });
-  
-    // Convert map to array of series objects
     return Array.from(seriesMap, ([name, data]) => ({ name, data }));
   };
-  
-  
-  const transformDataD = (data) => {
-    // Group data by series
-    const seriesMap = new Map();
 
-    data.forEach(({ datetime, value }) => {
-      const date = new Date(datetime).getTime();
+  const transformDataD = (data) => {
+    const seriesMap = new Map();
+    data.forEach(({ date_takeen, signal_value }) => {
+      const date = new Date(date_takeen).getTime();
       if (!seriesMap.has('series1')) {
         seriesMap.set('series1', []);
       }
-      seriesMap.get('series1').push([date, value]);
+      seriesMap.get('series1').push([date, signal_value]);
     });
-
-    // Convert map to array of series objects
     return Array.from(seriesMap, ([name, data]) => ({ name, data }));
   };
 
@@ -167,22 +151,18 @@ function graph_yield() {
   };
 
   return (
-    <div>
-      
-    <div className="containers">
-      <div className="chart-buttons">
-        <button className={selectedChart === 'day' ? 'selected' : ''} onClick={() => setSelectedChart('day')}>Day</button>
-        <button className={selectedChart === 'month' ? 'selected' : ''} onClick={() => setSelectedChart('month')}>Month</button>
-        <button className={selectedChart === 'year' ? 'selected' : ''} onClick={() => setSelectedChart('year')}>Year</button>
-        <button className={selectedChart === 'lifetime' ? 'selected' : ''} onClick={() => setSelectedChart('lifetime')}>Lifetime</button>
+    <div className={styles.containersS}>
+      <div>
+        <button className={selectedChart === 'day' ? styles.selected : ''} onClick={() => setSelectedChart('day')}>Day</button>
+        <button className={selectedChart === 'month' ? styles.selected : ''} onClick={() => setSelectedChart('month')}>Month</button>
+        <button className={selectedChart === 'year' ? styles.selected : ''} onClick={() => setSelectedChart('year')}>Year</button>
+        <button className={selectedChart === 'lifetime' ? styles.selected : ''} onClick={() => setSelectedChart('lifetime')}>Lifetime</button>
       </div>
-
-      <div className="chart-container">
+      <div>
         {renderChart()}
       </div>
-    </div>
     </div>
   );
 }
 
-export default graph_yield;
+export default GraphYield;

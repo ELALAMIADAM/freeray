@@ -1,0 +1,32 @@
+/* src/Card.css */
+.cardC {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #2c3e50;
+  }
+  
+  .iconC {
+    margin-bottom: 10px;
+
+  }
+  .iconC img {
+    width: 40px; /* Adjust the size as necessary */
+    height: 40px;
+  }
+  .numberC {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .descriptionC {
+    font-size: 15px;
+    color: #000000;
+  }
+  

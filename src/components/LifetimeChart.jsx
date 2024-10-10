@@ -82,7 +82,7 @@ const LifetimeChart = ({allSeries}) => {
   return (
     <div className="chart-container">
       <div id="chart">
-        <ReactApexChart options={options} series={allSeries} type="area" height={350} />
+        <ReactApexChart options={options} series={allSeries} type="area" height={350}  width={700}/>
       </div>
       
     </div>

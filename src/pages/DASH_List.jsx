@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './DASH_List.module.css';
+import Layout from '../Layout.jsx';
 
 // Import the individual graph components
 import Gradient_Circle from '../components/Gradient_Circle.jsx';
@@ -11,11 +11,79 @@ import Multiple_Radialbars from '../components/MultipleRadialbars.jsx';
 import Pie from '../components/Pie.jsx';
 import Radar from '../components/Radar.jsx';
 import Multi_group from '../components/Multi_group.jsx';
-import Line_chart from '../components/Line_chart.jsx';
+import GraphYield from '../components/Line_chart.jsx';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+
+
+const styles = {
+  dashboardContainer: {
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  insertGraphContainer: {
+    marginBottom: '20px',
+  },
+  insertGraphForm: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  formGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '10px',
+  },
+  formColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  formGroup: {
+    marginBottom: '10px',
+  },
+  button: {
+    padding: '10px',
+    border: 'none',
+    borderRadius: '5px',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    cursor: 'pointer',
+  },
+  previewContainer: {
+    marginTop: '20px',
+  },
+  chartPreview: {
+    marginTop: '10px',
+  },
+  errorMessage: {
+    color: 'red',
+    marginTop: '10px',
+  },
+  dataDashContainer: {
+    marginTop: '20px',
+  },
+  containerList: {
+    width: '100%',
+    overflowX: 'auto',
+  },
+  signalSlavesTable: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  // signalSlavesTable th, signalSlavesTable td: {
+  //   border: '1px solid #ddd',
+  //   padding: '8px',
+  // },
+};
 
 const DASH_List = () => {
-  const [addressIps, setAddressIps] = useState(['']);
-  const [logicalAddresses, setLogicalAddresses] = useState(['']);
+  const [signalNames, setSignalNames] = useState(['']);
+  const [slaveNames, setSlaveNames] = useState(['']);
   const [groupName, setGroupName] = useState('');
   const [message, setMessage] = useState('');
   const [numSignals, setNumSignals] = useState(1);
@@ -23,6 +91,8 @@ const DASH_List = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dataChanged, setDataChanged] = useState(false);
+  const [signalOptions, setSignalOptions] = useState([]);
+  const [slaveOptions, setSlaveOptions] = useState([]);
 
   // Define series and labels arrays for each graph type
   const seriesArray = [
@@ -41,7 +111,7 @@ const DASH_List = () => {
     Pie,
     Radar,
     Multi_group,
-    Line_chart,
+    GraphYield,
   };
 
   const fetchData = async () => {
@@ -60,57 +130,89 @@ const DASH_List = () => {
     }
   };
 
+  const fetchOptions = async () => {
+    try {
+      const [signalsRes, slavesRes] = await Promise.all([
+        axios.get('http://localhost:3001/SignalList'),
+        axios.get('http://localhost:3001/SlavesList')
+      ]);
+      setSignalOptions(signalsRes.data.map(signal => signal.signal_name));
+      setSlaveOptions(slavesRes.data.map(slave => slave.slave_name));
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    fetchOptions();
   }, [dataChanged]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      address_ip: addressIps,
-      logical_address: logicalAddresses,
+      signal_name: signalNames,
+      slave_name: slaveNames,
       group_name: groupName || 'DefaultGroup',
     };
-
+  
     try {
-      const response = await axios.post('http://localhost:3001/insert_graph', data);
-      setMessage(response.data.message);
+      // Create group and get group_id
+      const groupResponse = await axios.post('http://localhost:3001/create_group', { group_name: data.group_name });
+      const groupId = groupResponse.data.group_id;
+  
+      // Insert each signal with the obtained group_id
+      const insertPromises = data.signal_name.map((signal, index) => {
+        return axios.post('http://localhost:3001/insert_dashboard_with_details', {
+          group_id: groupId,
+          slave_name: data.slave_name[index],
+          signal_name: signal,
+        });
+      });
+  
+      await Promise.all(insertPromises);
+  
+      setMessage('Graph inserted successfully!');
       setDataChanged(!dataChanged);
     } catch (error) {
       setMessage(`Error: ${error.response?.data.error || error.message}`);
     }
   };
+  
+  
+  
+  
 
   const handleGraphChange = (e) => {
     const selectedGraph = e.target.value;
     setGroupName(selectedGraph);
     let numAddresses = 1;
 
-    if (selectedGraph === 'Custom_Angle' || selectedGraph === 'Pie' || selectedGraph === 'Multi_group' || selectedGraph === 'Line_chart') {
+    if (selectedGraph === 'Custom_Angle' || selectedGraph === 'Pie' || selectedGraph === 'Multi_group' || selectedGraph === 'GraphYield') {
       numAddresses = numSignals;
     }
 
-    setLogicalAddresses(Array(numAddresses).fill(''));
-    setAddressIps(Array(numAddresses).fill(''));
+    setSignalNames(Array(numAddresses).fill(''));
+    setSlaveNames(Array(numAddresses).fill(''));
   };
 
   const handleNumSignalsChange = (e) => {
     const num = parseInt(e.target.value);
     setNumSignals(num);
-    setLogicalAddresses(Array(num).fill(''));
-    setAddressIps(Array(num).fill(''));
+    setSignalNames(Array(num).fill(''));
+    setSlaveNames(Array(num).fill(''));
   };
 
-  const handleAddressIpChange = (index, value) => {
-    const newAddressIps = [...addressIps];
-    newAddressIps[index] = value;
-    setAddressIps(newAddressIps);
+  const handleSignalNameChange = (index, newValue) => {
+    const newSignalNames = [...signalNames];
+    newSignalNames[index] = newValue;
+    setSignalNames(newSignalNames);
   };
 
-  const handleLogicalAddressChange = (index, value) => {
-    const newLogicalAddresses = [...logicalAddresses];
-    newLogicalAddresses[index] = value;
-    setLogicalAddresses(newLogicalAddresses);
+  const handleSlaveNameChange = (index, newValue) => {
+    const newSlaveNames = [...slaveNames];
+    newSlaveNames[index] = newValue;
+    setSlaveNames(newSlaveNames);
   };
 
   const handleDelete = async (dash_id) => {
@@ -125,107 +227,114 @@ const DASH_List = () => {
   const SelectedChart = charts[groupName];
 
   return (
-    <div className={styles.dashboardContainer}>
-      <div className={styles.insertGraphContainer}>
-        <form onSubmit={handleSubmit} className={styles.insertGraphForm}>
+    <>    
+    <Layout>
+    <div style={styles.dashboardContainer}>
+      <div style={styles.insertGraphContainer}>
+      <Box sx={{ minWidth: 120 }}>
+
+        <form onSubmit={handleSubmit} style={styles.insertGraphForm}>
           <div>
-            <label>Graph:</label>
-            <select value={groupName} onChange={handleGraphChange}>
-              <option value="" disabled>Select</option>
-              <option value="Gradient_Circle">Gradient_Circle</option>
-              <option value="Semi_Circular">Semi_Circular</option>
-              <option value="Stroked_circular">Stroked_circular</option>
-              <option value="Custom_Angle">Custom_Angle</option>
-              <option value="Multiple_Radialbars">Multiple_Radialbars</option>
-              <option value="Pie">Pie</option>
-              <option value="Radar">Radar</option>
-              <option value="Multi_group">Multi_group</option>
-              <option value="Line_chart">Line_chart</option>
-            </select>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Graph</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={groupName}
+                label="Graph"
+                onChange={handleGraphChange}
+              >
+                <MenuItem value={"Gradient_Circle"}>Gradient_Circle</MenuItem>
+                <MenuItem value={"Semi_Circular"}>Semi_Circular</MenuItem>
+                <MenuItem value={"Stroked_circular"}>Stroked_circular</MenuItem>
+                <MenuItem value={"Custom_Angle"}>Custom_Angle</MenuItem>
+                <MenuItem value={"Multiple_Radialbars"}>Multiple_Radialbars</MenuItem>
+                <MenuItem value={"Pie"}>Pie</MenuItem>
+                <MenuItem value={"GraphYield"}>GraphYield</MenuItem>
+              </Select>
+            </FormControl>
+            
           </div>
-          {(groupName === 'Pie' || groupName === 'Custom_Angle' || groupName === 'Multi_group' || groupName === 'Line_chart') && (
+          {(groupName === 'Pie' || groupName === 'Custom_Angle' || groupName === 'Multi_group' || groupName === 'GraphYield') && (
             <div>
               <label>Number of Signals:</label>
               <input
                 type="number"
-                min="1"
-                max="10"
                 value={numSignals}
                 onChange={handleNumSignalsChange}
+                min="1"
               />
             </div>
           )}
-          <div className={styles.formGrid}>
-            {logicalAddresses.map((logicalAddress, index) => (
-              <div key={index} className={styles.formColumn}>
+          <div style={styles.formGrid}>
+            {signalNames.map((signalName, index) => (
+              <div key={index} style={styles.formColumn}>
                 <h2>Signal {index + 1}</h2>
-                <div className={styles.formGroup}>
-                  <label>Logical address {index + 1}:</label>
-                  <input
-                    type="number"
-                    value={logicalAddress}
-                    onChange={(e) => handleLogicalAddressChange(index, e.target.value)}
+                <div style={styles.formGroup}>
+                  <Autocomplete
+                    disablePortal
+                    id={`slave-name-autocomplete-${index}`}
+                    options={slaveOptions}
+                    value={slaveNames[index]}
+                    onChange={(event, newValue) => handleSlaveNameChange(index, newValue)}
+                    renderInput={(params) => <TextField {...params} label="Slave Name" />}
                   />
                 </div>
-                <div className={styles.formGroup}>
-                  <label>Address IP {index + 1}:</label>
-                  <input
-                    type="number"
-                    value={addressIps[index]}
-                    onChange={(e) => handleAddressIpChange(index, e.target.value)}
+                <div style={styles.formGroup}>
+                  <Autocomplete
+                    disablePortal
+                    id={`signal-name-autocomplete-${index}`}
+                    options={signalOptions}
+                    value={signalName}
+                    onChange={(event, newValue) => handleSignalNameChange(index, newValue)}
+                    renderInput={(params) => <TextField {...params} label="Signal Name" />}
                   />
                 </div>
               </div>
             ))}
           </div>
-          <button className={styles.button} type="submit">ADD TO DASHBOARD</button>
+          <button type="submit" style={styles.button}>Insert Graph</button>
         </form>
+      </Box>
+      </div>
+      <div style={styles.previewContainer}>
+        {message && <div>{message}</div>}
         {SelectedChart && (
-          <div className={styles.previewContainer}>
-            <h2>Graph Preview</h2>
-            <div className={styles.chartPreview}>
-              <SelectedChart
-                series={seriesArray[Object.keys(charts).indexOf(groupName)]}
-                labels={labelsArray[Object.keys(charts).indexOf(groupName)]}
-              />
-            </div>
+          <div style={styles.chartPreview}>
+            <SelectedChart
+              series={seriesArray[Object.keys(charts).indexOf(groupName)]}
+              labels={labelsArray[Object.keys(charts).indexOf(groupName)]}
+            />
           </div>
         )}
-        {message && <p className={styles.errorMessage}>{message}</p>}
       </div>
-      <div className={styles.dataDashContainer}>
+      <div style={styles.dataDashContainer}>
         {loading ? (
-          <div>Loading...</div>
+          <p>Loading...</p>
         ) : error ? (
-          <div>Error: {error}</div>
+          <p style={styles.errorMessage}>Error: {error}</p>
         ) : (
-          <div className={styles.containerList}>
-            <h2>Dashboard Data</h2>
-            <table className={styles.signalSlavesTable}>
+          <div style={styles.containerList}>
+            <h2>Signal/Slaves</h2>
+            <table style={styles.signalSlavesTable}>
               <thead>
                 <tr>
-                  <th>dashboard_id</th>
-                  <th>Logical Address</th>
-                  <th>Address IP</th>
+                  <th>Group ID</th>
                   <th>Signal Name</th>
                   <th>Slave Name</th>
-                  <th>Graph Name</th>
-                  <th>signal_value</th>
+                  <th>Group Name</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {dashboardData.map((data) => (
+                {dashboardData.map(data => (
                   <tr key={data.dash_id}>
                     <td>{data.group_id}</td>
-                    <td>{data.logical_address}</td>
-                    <td>{data.address_ip}</td>
                     <td>{data.signal_name}</td>
                     <td>{data.slave_name}</td>
                     <td>{data.group_name}</td>
-                    <td>{data.signal_value}</td>
                     <td>
-                      <button className={styles.button} onClick={() => handleDelete(data.dash_id)}>Delete</button>
+                      <button onClick={() => handleDelete(data.dash_id)} style={styles.button}>Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -235,6 +344,8 @@ const DASH_List = () => {
         )}
       </div>
     </div>
+    </Layout>
+    </>
   );
 };
 

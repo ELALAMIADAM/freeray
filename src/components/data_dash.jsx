@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './DASH_ADDED.css'; // Import the CSS file
 
 const DataDash = () => {
   const [dashboardData, setDashboardData] = useState([]);
@@ -26,7 +25,7 @@ const DataDash = () => {
   const handleDelete = async (dash_id) => {
     try {
       await axios.delete(`http://localhost:3001/deleteDash/${dash_id}`);
-      setDashboardData(dashboardData.filter(data => data.dash_id !== dash_id)); 
+      setDashboardData(dashboardData.filter(data => data.dash_id !== dash_id));
     } catch (error) {
       setError(error.message);
     }
@@ -45,25 +44,25 @@ const DataDash = () => {
   }
 
   return (
-    <div className="container_LIST">
+    <div>
       <h2>Dashboard Data</h2>
-      <table className="signal-slaves-table">
+      <table>
         <thead>
           <tr>
-            <th>dashboard_id</th>
+            <th>Dashboard ID</th>
             <th>Logical Address</th>
             <th>Address IP</th>
             <th>Signal Name</th>
             <th>Slave Name</th>
             <th>Graph Name</th>
-            <th>signal_value</th>
+            <th>Signal Value</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {dashboardData.map((data) => (
             <tr key={data.dash_id}>
-              <td>{data.group_id}</td>    
+              <td>{data.group_id}</td>
               <td>{data.logical_address}</td>
               <td>{data.address_ip}</td>
               <td>{data.signal_name}</td>

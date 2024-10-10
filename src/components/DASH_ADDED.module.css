@@ -1,0 +1,23 @@
+
+
+
+/* Dashboard styling */
+.dashboardGrid {
+  display: flex;          /* Flex display for flexible layout */
+  flex-wrap: wrap;        /* Allow wrapping of items */
+  gap: 20px;              /* Space between items */
+  padding: 10px;          /* Padding around grid */
+  justify-content: space-around; /* Space around items */
+}
+
+.dashboardItem {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(224, 126, 126, 0.1);
+  padding: 20px;
+  margin: 10px;
+  flex: 1 1 400px;        /* Flex-grow, flex-shrink, and flex-basis */
+  display: flex;          /* Flex display for centered content */
+  justify-content: center; /* Center content horizontally */
+  align-items: center;    /* Center content vertically */
+}

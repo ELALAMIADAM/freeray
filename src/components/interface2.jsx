@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import Firstbody from "../interface2/firstbody.jsx";
-// import Secondbody from "../interface2/Secondbody.jsx";
-// import Thirdbody from "../interface2/thirdbody.jsx";
-import GR from "./graph_yield.jsx";
+
+import GR from "./GraphYield.jsx";
 function interface1() {
 
   const [data, setData] = useState({
@@ -32,7 +30,7 @@ function interface1() {
   }, []);
 
     return(
-  <main>
+  <div>
     
     {/* <div class="container">
   
@@ -67,7 +65,7 @@ function interface1() {
     
     
     
-    </main>
+    </div>
     
   );
   }

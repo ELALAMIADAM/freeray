@@ -1,0 +1,12 @@
+.containersS{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
